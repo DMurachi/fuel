@@ -14,6 +14,9 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.bucares.fuel.URLConstants.APP_VERSION_URL;
+import static com.bucares.fuel.URLConstants.HEALTH_ENDPOINT_URL;
+
 public class AppController {
     private static final Logger logger = LoggerFactory.getLogger(AppController.class);
 

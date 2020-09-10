@@ -22,4 +22,14 @@ public class choferService {
     public chofer getChoferByCedula(String cedula) {
         return choferRepository.findByCedula(cedula);
     }
+    public List<chofer> getChoferByCondicion(String condicion) { return (List<chofer>) choferRepository.findByCondicion(condicion); }
+    public void deleteChoferByCedula(String cedula){ choferRepository.deleteByCedula(cedula); }
+    public void switcher(String condicion, chofer chofer){
+        if(condicion == "activo" ){
+            chofer.setCondicion("inactivo");
+        }
+        if(condicion == "inactivo"){
+            chofer.setCondicion("activo");
+        }
+    }
 }

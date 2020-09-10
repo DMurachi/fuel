@@ -2,6 +2,7 @@ package com.bucares.fuel.controller;
 
 import com.bucares.fuel.models.chofer;
 import com.bucares.fuel.service.Response;
+import com.bucares.fuel.service.choferService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,8 @@ import java.util.List;
 @Controller
 public class choferController {
     @Autowired
-    private com.bucares.fuel.service.choferService choferService;
+    private choferService choferService;
+
 
     private static final Logger logger = LoggerFactory.getLogger(choferController.class);
 
@@ -27,9 +29,9 @@ public class choferController {
         logger.info("Called resource: getAllchofer");
 
         List<chofer> choferList = choferService.getAllChofer();
-        Response<List<chofer>> response = new Response<>("0000", choferList, null);
+        Response<List<chofer>> response = new Response<>("0000",choferList,null);
 
-        logger.info("Called resource: getAllProducts");
+        logger.info("Called resource: getAllChofer");
 
         logger.info("Consulted: every product in database");
 
@@ -49,7 +51,7 @@ public class choferController {
     @PostMapping(value = "/chofer")
     public ResponseEntity<Response<chofer>> createChofer(@Valid @RequestBody chofer chofer) {
         logger.info("Called resource: createChofer");
-      //  logger.info("{}", chofer.getNombre());
+        logger.info("{}", chofer.getNombre());
 
         chofer oldChofer = choferService.getChoferByCedula((String) chofer.getCedula());
         if (oldChofer != null) {
@@ -65,5 +67,19 @@ public class choferController {
         Response<chofer> response = new Response<>("0000", chofer, null);
 
         return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+    @GetMapping(value = "/chofer/{condicion}")
+    public ResponseEntity<Response<List<chofer>>> getChoferByCondicion(@PathVariable("condicion") String condicion) {
+        logger.info("Called resource: getChoferByCondicion");
+        List<chofer> choferList = choferService.getChoferByCondicion(condicion);
+        Response<List<chofer>> response = new Response<>("0000",choferList,null);
+        return new ResponseEntity<>(response, HttpStatus.OK);//??????????????????
+    }
+    public chofer getChoferDisponible(String condicion){
+        logger.info("Called resource: getChoferDisponible");
+        List<chofer> choferList = choferService.getChoferByCondicion(condicion);
+        if(choferList.isEmpty()){
+            return null;
+        }return null;
     }
 }

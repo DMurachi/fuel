@@ -23,6 +23,12 @@ public class Response<T> {
 
     private String message;
 
+    public Response(String s, T data, Object o) {
+        this.code=s;
+        this.data=data;
+        this.message= (String) o;
+    }
+
     public String toJson() throws JsonProcessingException {
         ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
 

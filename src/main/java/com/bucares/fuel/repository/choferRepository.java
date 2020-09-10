@@ -9,4 +9,6 @@ import org.springframework.stereotype.Repository;
 @RestResource(exported = false)
 public interface choferRepository extends JpaRepository<chofer, Long> {
     chofer findByCedula(String cedula);
+    chofer findByCondicion(String condicion);
+    chofer deleteByCedula(String cedula);
 }
